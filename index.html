@@ -29,6 +29,8 @@
 
         .reveal .slides section {
             background: var(--navy);
+            padding-left: 0.8em;
+            border-radius: 10px;
         }
 
         .reveal h1, .reveal h2, .reveal h3 {
@@ -54,8 +56,8 @@
         }
 
         .reveal p, .reveal li {
-            font-size: 0.65em;
-            line-height: 1.6;
+            font-size: 0.48em;
+            line-height: 1.4;
             font-weight: 300;
             color: var(--text);
         }
@@ -68,6 +70,7 @@
         .reveal ul li {
             padding-left: 1.2em;
             position: relative;
+            transition: color 0.8s ease;
             margin-bottom: 0.5em;
         }
 
@@ -101,7 +104,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 2.5em;
-            align-items: center;
+            align-items: start;
         }
 
         .feature-text {
@@ -128,24 +131,45 @@
         }
 
         .screenshot-placeholder {
-            background: var(--navy-light);
-            border: 2px dashed rgba(212, 168, 67, 0.25);
-            border-radius: 12px;
-            height: 340px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            position: relative;
             color: var(--text-muted);
             font-size: 0.55em;
-            overflow: hidden;
+            margin-top: -2.5em;
         }
 
         .screenshot-placeholder img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            max-width: 95%;
+            max-height: 580px;
+            object-fit: contain;
             border-radius: 10px;
+        }
+
+        .screenshot-placeholder[data-carousel] {
+            overflow: hidden;
+        }
+
+        .screenshot-placeholder[data-carousel] .carousel-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            max-width: 95%;
+            max-height: 580px;
+            object-fit: contain;
+            border-radius: 10px;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .screenshot-placeholder[data-carousel] .carousel-img:first-child {
+            position: relative;
+        }
+
+        .screenshot-placeholder[data-carousel] .carousel-img.active {
+            opacity: 1;
+        }
+
+        .feature-text ul li.highlight {
+            color: var(--gold);
         }
 
         .screenshot-placeholder .placeholder-label {
@@ -165,6 +189,7 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 1.5em;
             margin-top: 1.5em;
+            padding: 0 1em 1.5em;
         }
 
         .problem-card {
@@ -282,10 +307,8 @@
         <div class="slides">
 
             <!-- 1. Title -->
-            <section>
-                <h1>Sage<span style="color: var(--gold)">Desk</span></h1>
-                <p class="tagline">Policy Research & Communications Platform</p>
-                <p class="company">by SageQuery</p>
+            <section style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                <p class="tagline" style="font-size: 2.2em !important; font-weight: 600;">Research & Communications Platform</p>
                 <aside class="notes">
                     Welcome slide. SageDesk is an integrated platform built specifically for parliamentary teams.
                 </aside>
@@ -326,15 +349,20 @@
                         <ul>
                             <li>Searchable, filterable library of reports, articles, podcasts, and policy documents from trusted publishers</li>
                             <li>Every resource is automatically summarised by AI into short briefings and comprehensive analyses</li>
-                            <li>Filter by format, source, publisher, and topic with instant results</li>
+                            <li>Generate sceptical analyses that reframe claims and challenge assumptions from an alternative perspective</li>
+                            <li>Subscribe to customised resource summaries filtered by format, source, publisher, or topic and be notified by email</li>
+                            <li>An integrated AI research assistant that allows you to ask questions in plain English and receive sourced, evidence-based answers from your document library, filtered as needed</li>
+                            <li>Scope queries to a single resource for deep-dive analysis in a specific document</li>
                         </ul>
-                        <div class="use-case">"Digest a 300-page ONS report in two minutes instead of two hours"</div>
-                        <div class="workflow">Eliminates manual document triage</div>
                     </div>
-                    <div class="screenshot-placeholder">
-                        <!-- Replace with: <img src="img/resource-library.png" alt="Resource Library"> -->
-                        <div class="placeholder-icon">&#128218;</div>
-                        <div class="placeholder-label">resource-library.png</div>
+                    <div class="screenshot-placeholder" data-carousel>
+                        <img class="carousel-img active" src="img/pages/resource/resources_main.png" alt="Resource Library">
+                        <img class="carousel-img" src="img/pages/resource/resources_summary.png" alt="Resource summary view">
+                        <img class="carousel-img" src="img/pages/resource/resource_skeptical_summary.png" alt="Resource skeptical summary view">
+                        <img class="carousel-img" src="img/pages/resource/resources_subscribe.png" alt="Resource subscribe view">
+                        <img class="carousel-img" src="img/pages/ai/resource_assistant.png" alt="AI Research Assistant">
+                        <img class="carousel-img" src="img/pages/ai/document_chatbot.png" alt="AI Research Assistant">
+
                     </div>
                 </div>
                 <aside class="notes">
@@ -342,74 +370,29 @@
                 </aside>
             </section>
 
-            <!-- 4. AI Research Assistant -->
-            <section>
-                <h2>AI Research <span class="gold">Assistant</span></h2>
-                <hr class="gold-divider">
-                <div class="feature-grid">
-                    <div class="feature-text">
-                        <ul>
-                            <li>Ask questions in plain English and receive sourced, evidence-based answers from your document library</li>
-                            <li>Scope queries to a single resource for deep-dive analysis or search across everything</li>
-                            <li>Optional web search integration for the latest information beyond your library</li>
-                        </ul>
-                        <div class="use-case">"What are the latest statistics on food poverty in the UK?"</div>
-                        <div class="workflow">Replaces hours of manual cross-referencing</div>
-                    </div>
-                    <div class="screenshot-placeholder">
-                        <!-- Replace with: <img src="img/ai-assistant.png" alt="AI Research Assistant"> -->
-                        <div class="placeholder-icon">&#128172;</div>
-                        <div class="placeholder-label">ai-assistant.png</div>
-                    </div>
-                </div>
-                <aside class="notes">
-                    Demo the chatbot widget with a real question. Show how it cites sources from the library.
-                </aside>
-            </section>
-
-            <!-- 5. Article Writer -->
-            <section>
-                <h2>Article <span class="gold">Writer</span></h2>
-                <hr class="gold-divider">
-                <div class="feature-grid">
-                    <div class="feature-text">
-                        <ul>
-                            <li>AI-assisted drafting tool for opinion pieces, blog posts, and policy articles</li>
-                            <li>Draws on your resource library for evidence, ensuring every claim is grounded in data</li>
-                            <li>Multi-turn workflow: brainstorm, outline, draft, revise, polish</li>
-                        </ul>
-                        <div class="use-case">"Draft an op-ed on NHS funding with statistics from our library"</div>
-                        <div class="workflow">Accelerates writing from days to hours</div>
-                    </div>
-                    <div class="screenshot-placeholder">
-                        <!-- Replace with: <img src="img/article-writer.png" alt="Article Writer"> -->
-                        <div class="placeholder-icon">&#9997;</div>
-                        <div class="placeholder-label">article-writer.png</div>
-                    </div>
-                </div>
-                <aside class="notes">
-                    Show the full-page writer interface. Demonstrate how it pulls evidence from the library.
-                </aside>
-            </section>
-
-            <!-- 6. Briefing Generator -->
+            <!-- 5. Briefing Generator -->
             <section>
                 <h2>Briefing <span class="gold">Generator</span></h2>
+                <p style="font-size: 0.7em !important; color: var(--text-muted); margin-top: -0.3em; margin-bottom: 0.3em;">Some Possible Applications</p>
                 <hr class="gold-divider">
                 <div class="feature-grid">
                     <div class="feature-text">
                         <ul>
-                            <li>Five briefing types: Speaking Notes, Ministerial Questions, Constituency Surgery, Media Interview, Social Content</li>
+                            <li>Speaking Notes — structured talking points with key statistics and arguments for debates and speeches</li>
+                            <li>Ministerial Questions — suggested questions, follow-ups, and supporting evidence for oral and written MQs</li>
+                            <li>Constituency Surgery — background briefings on local issues with relevant data for constituent meetings</li>
+                            <li>Media Interview — key messages, anticipated questions, and defensive lines for broadcast and press</li>
+                            <li>Social Content — platform-optimised posts with AI-generated hooks and hashtags</li>
                             <li>Each briefing draws on your evidence base and can include an alternative analytical perspective</li>
-                            <li>Export to Word document for easy sharing with colleagues</li>
                         </ul>
-                        <div class="use-case">"Generate MQ prep on NHS waiting lists with key statistics and suggested questions"</div>
-                        <div class="workflow">Minutes instead of hours of preparation</div>
                     </div>
-                    <div class="screenshot-placeholder">
-                        <!-- Replace with: <img src="img/briefing-generator.png" alt="Briefing Generator"> -->
-                        <div class="placeholder-icon">&#128203;</div>
-                        <div class="placeholder-label">briefing-generator.png</div>
+                    <div class="screenshot-placeholder" data-carousel>
+                        <img class="carousel-img active" src="img/pages/briefings/speaking_notes.png" alt="Speaking Notes">
+                        <img class="carousel-img" src="img/pages/briefings/ministerial_briefing.png" alt="Ministerial Questions">
+                        <img class="carousel-img" src="img/pages/briefings/constituency_briefing.png" alt="Constituency Surgery">
+                        <img class="carousel-img" src="img/pages/briefings/media_briefing.png" alt="Media Interview">
+                        <img class="carousel-img" src="img/pages/briefings/social_media_briefing.png" alt="Social Content">
+                        <img class="carousel-img" src="img/pages/briefings/create_briefings.png" alt="Create Briefing">
                     </div>
                 </div>
                 <aside class="notes">
@@ -424,17 +407,18 @@
                 <div class="feature-grid">
                     <div class="feature-text">
                         <ul>
-                            <li>Automatically transcribe podcasts and YouTube interviews with speaker identification</li>
-                            <li>AI analysis detects rhetorical techniques, evasive answers, and interview quality</li>
                             <li>Subscribe to podcast feeds for automatic episode capture</li>
+                            <li>Automatically transcribe podcasts and YouTube interviews with speaker identification</li>
+                            <li>AI analysis identifies the topics discussed and generates an executive summary</li>
+                            <li>AI analysis detects rhetorical techniques, evasive answers, and interview quality</li>
+
                         </ul>
-                        <div class="use-case">"Transcribe a Select Committee session and flag evasive responses"</div>
-                        <div class="workflow">Hours of listening become searchable, analysable text</div>
                     </div>
-                    <div class="screenshot-placeholder">
-                        <!-- Replace with: <img src="img/media-analysis.png" alt="Media Analysis"> -->
-                        <div class="placeholder-icon">&#127897;</div>
-                        <div class="placeholder-label">media-analysis.png</div>
+                    <div class="screenshot-placeholder" data-carousel>
+                        <img class="carousel-img active" src="img/pages/media_analysis/podcast_list.png" alt="Podcast list">
+                        <img class="carousel-img" src="img/pages/media_analysis/transcribed.png" alt="Transcribed podcast">
+                        <img class="carousel-img" src="img/pages/media_analysis/zack_1.png" alt="Media analysis view">
+                        <img class="carousel-img" src="img/pages/media_analysis/zack_2.png" alt="Media analysis detail">
                     </div>
                 </div>
                 <aside class="notes">
@@ -453,13 +437,11 @@
                             <li>UK gilt yields compared against international peers (US, France, Germany)</li>
                             <li>AI-powered chat panel for instant market commentary and daily summaries</li>
                         </ul>
-                        <div class="use-case">"Check gilt yields before Treasury questions"</div>
-                        <div class="workflow">Market intelligence without Bloomberg</div>
                     </div>
-                    <div class="screenshot-placeholder">
-                        <!-- Replace with: <img src="img/market-dashboard.png" alt="Market Dashboard"> -->
-                        <div class="placeholder-icon">&#128200;</div>
-                        <div class="placeholder-label">market-dashboard.png</div>
+                    <div class="screenshot-placeholder" data-carousel>
+                        <img class="carousel-img active" src="img/pages/market_dashboard/fin_mkt_dashboard.png" alt="Market Dashboard">
+                        <img class="carousel-img" src="img/pages/market_dashboard/bonds.png" alt="Bonds overview">
+                        <img class="carousel-img" src="img/pages/market_dashboard/bond_analysis.png" alt="AI bond analysis">
                     </div>
                 </div>
                 <aside class="notes">
@@ -478,13 +460,11 @@
                             <li>New releases are summarised by AI and can be emailed directly to your team</li>
                             <li>Subscribe to specific department feeds and have publications added to your library automatically</li>
                         </ul>
-                        <div class="use-case">"Get an AI briefing the moment ONS publishes new labour market data"</div>
-                        <div class="workflow">Publications come to you, pre-summarised</div>
                     </div>
-                    <div class="screenshot-placeholder">
-                        <!-- Replace with: <img src="img/ons-monitor.png" alt="ONS & GOV.UK Monitor"> -->
-                        <div class="placeholder-icon">&#127467;&#127463;</div>
-                        <div class="placeholder-label">ons-monitor.png</div>
+                    <div class="screenshot-placeholder" data-carousel>
+                        <img class="carousel-img active" src="img/pages/ons/ons_gdp.png" alt="ONS & GOV.UK Monitor">
+                        <img class="carousel-img" src="img/pages/ons/gdp_summary.png" alt="ONS & GOV.UK Monitor">
+                        <img class="carousel-img" src="img/pages/ons/ons_page.png" alt="ONS & GOV.UK Monitor">
                     </div>
                 </div>
                 <aside class="notes">
@@ -500,16 +480,16 @@
                     <div class="feature-text">
                         <ul>
                             <li>Live constituency-level polling projections across all 650 seats</li>
-                            <li>Interactive geographic and hex maps with seat count projections for 10 parties</li>
-                            <li>Historical trends, battleground seats, and regional breakdowns</li>
+                            <li>Historical trends</li>
+                            <li>Battleground seats</li>
+                            <li>Regional breakdowns</li>
                         </ul>
-                        <div class="use-case">"Monitor projected vote shares in your constituency and neighbouring battlegrounds"</div>
-                        <div class="workflow">All polling data in one always-current dashboard</div>
                     </div>
-                    <div class="screenshot-placeholder">
-                        <!-- Replace with: <img src="img/nowcast.png" alt="Constituency Nowcast"> -->
-                        <div class="placeholder-icon">&#128506;</div>
-                        <div class="placeholder-label">nowcast.png</div>
+                    <div class="screenshot-placeholder" data-carousel>
+                        <img class="carousel-img active" src="img/pages/nowcast/full_nowcast_map.png" alt="Nowcast map">
+                        <img class="carousel-img" src="img/pages/nowcast/nowcast_historical.png" alt="Nowcast historical trends">
+                        <img class="carousel-img" src="img/pages/nowcast/nowcast_battleground.png" alt="Nowcast battleground seats">
+                        <img class="carousel-img" src="img/pages/nowcast/nowcast_regional.png" alt="Nowcast regional breakdowns">
                     </div>
                 </div>
                 <aside class="notes">
@@ -517,7 +497,36 @@
                 </aside>
             </section>
 
-            <!-- 11. Public Dashboards -->
+            <!-- 11. Constituency Data Explorer -->
+            <section>
+                <h2>Constituency <span class="gold">Data Explorer</span></h2>
+                <hr class="gold-divider">
+                <div class="feature-grid">
+                    <div class="feature-text">
+                        <ul>
+                            <li>Detailed constituency profiles for all 650 seats currently covering economy, deprivation, health, child poverty, food banks, local authorities, and house prices</li>
+                            <li>Employment and earnings data with sector-by-sector breakdowns sourced from Nomis, APS, and BRES</li>
+                            <li>Index of Multiple Deprivation scores, domain breakdowns, and LSOA decile distribution charts from IMD 2025</li>
+                            <li>Health indicators including life expectancy, disease prevalence, mortality, and childhood obesity from OHID Fingertips and NHS Digital</li>
+                            <li>Child poverty rates, food bank parcel data with historical trends from Trussell Trust, and local authority budget breakdowns</li>
+                            <li>House prices by property type and buyer type with 30-year price and sales volume trend charts from HM Land Registry</li>
+                            <li>Fully extensible and customisable — can be expanded to encompass any number of constituency-level datasets</li>
+                        </ul>
+                    </div>
+                    <div class="screenshot-placeholder" data-carousel>
+                        <img class="carousel-img active" src="img/pages/constituencies/constituency_1.png" alt="Constituency economy overview">
+                        <img class="carousel-img" src="img/pages/constituencies/constituency_2.png" alt="Constituency deprivation data">
+                        <img class="carousel-img" src="img/pages/constituencies/constituency_3.png" alt="Constituency health data">
+                        <img class="carousel-img" src="img/pages/constituencies/constituency_4.png" alt="Constituency food banks data">
+                        <img class="carousel-img" src="img/pages/constituencies/constituency_5.png" alt="Constituency house prices">
+                    </div>
+                </div>
+                <aside class="notes">
+                    Show Amber Valley as an example. Click through the tabs: Economy, Deprivation, Health, Child Poverty, Food Banks, Local Authorities, House Prices. Highlight the sourcing from official data.
+                </aside>
+            </section>
+
+            <!-- 12. Public Dashboards -->
             <section>
                 <h2>Public <span class="gold">Dashboards</span></h2>
                 <hr class="gold-divider">
@@ -528,11 +537,9 @@
                             <li>Themed views tracking the Chancellor's policy impact: cost of living, NHS, economic indicators</li>
                             <li>Embeddable on constituency websites to keep constituents informed</li>
                         </ul>
-                        <div class="use-case">"Share a cost-of-living dashboard on your constituency website"</div>
-                        <div class="workflow">Raw data into shareable visualisations — no data team needed</div>
                     </div>
-                    <div class="screenshot-placeholder">
-                        <!-- Replace with: <img src="img/dashboards.png" alt="Public Dashboards"> -->
+                    <div class="screenshot-placeholder" data-carousel>
+                        <!-- Add images: <img class="carousel-img active" src="img/pages/dashboards/..." alt="Public Dashboards"> -->
                         <div class="placeholder-icon">&#128202;</div>
                         <div class="placeholder-label">dashboards.png</div>
                     </div>
@@ -553,11 +560,9 @@
                             <li>Share previews with stakeholders via secure token-gated links — no login required</li>
                             <li>Professional digital format replacing PowerPoint decks and email chains</li>
                         </ul>
-                        <div class="use-case">"Create a digital campaign brief combining data visualisations with case studies"</div>
-                        <div class="workflow">From scattered documents to a polished, shareable page</div>
                     </div>
-                    <div class="screenshot-placeholder">
-                        <!-- Replace with: <img src="img/campaign-projects.png" alt="Campaign Projects"> -->
+                    <div class="screenshot-placeholder" data-carousel>
+                        <!-- Add images: <img class="carousel-img active" src="img/pages/campaign/..." alt="Campaign Projects"> -->
                         <div class="placeholder-icon">&#127942;</div>
                         <div class="placeholder-label">campaign-projects.png</div>
                     </div>
@@ -578,11 +583,9 @@
                             <li><strong>Email Digests:</strong> Team members subscribe to filtered resource updates — immediate, daily, or weekly</li>
                             <li>AI summaries included in notifications so your team stays informed without manual forwarding</li>
                         </ul>
-                        <div class="use-case">"Researchers subscribe to daily digests filtered to their policy specialisms"</div>
-                        <div class="workflow">Automated team communications</div>
                     </div>
-                    <div class="screenshot-placeholder">
-                        <!-- Replace with: <img src="img/social-subscriptions.png" alt="Social & Subscriptions"> -->
+                    <div class="screenshot-placeholder" data-carousel>
+                        <!-- Add images: <img class="carousel-img active" src="img/pages/social/..." alt="Social & Subscriptions"> -->
                         <div class="placeholder-icon">&#128231;</div>
                         <div class="placeholder-label">social-subscriptions.png</div>
                     </div>
@@ -592,7 +595,31 @@
                 </aside>
             </section>
 
-            <!-- 14. How It Fits Together -->
+            <!-- 14. System Dynamics Modeller -->
+            <section>
+                <h2>System Dynamics <span class="gold">Modeller</span></h2>
+                <hr class="gold-divider">
+                <div class="feature-grid">
+                    <div class="feature-text">
+                        <ul>
+                            <li>Build, calibrate, and simulate System Dynamics models entirely in the browser — stocks, flows, variables, and parameters on an interactive canvas</li>
+                            <li>Real-time formula validation, automated error checking, and RK45/Euler integration with interactive D3.js time-series charts</li>
+                            <li>Calibrate models against real-world CSV data with Nelder-Mead optimisation, and run sensitivity analysis with fan charts</li>
+                            <li>Sub-model boundaries for isolating subsystems, dimensional analysis for unit consistency, and full JSON import/export</li>
+                        </ul>
+                    </div>
+                    <div class="screenshot-placeholder" data-carousel>
+                        <!-- Add images: <img class="carousel-img active" src="img/pages/sd/..." alt="System Dynamics Modeller"> -->
+                        <div class="placeholder-icon">&#9881;</div>
+                        <div class="placeholder-label">sd-modeller.png</div>
+                    </div>
+                </div>
+                <aside class="notes">
+                    Demo the SIR model on the canvas. Show drag-and-drop building, formula entry with autocomplete, and the simulation charts. Highlight calibration against real data as the key differentiator.
+                </aside>
+            </section>
+
+            <!-- 15. How It Fits Together (was 14) -->
             <section>
                 <h2>How It <span class="gold">Fits Together</span></h2>
                 <hr class="gold-divider">
@@ -613,6 +640,12 @@
                     </div>
                     <div class="ecosystem-arrow">&#8594;</div>
                     <div class="ecosystem-step">
+                        <div class="step-icon">&#9881;</div>
+                        <h3>Model</h3>
+                        <p>System dynamics,<br>calibration, simulation</p>
+                    </div>
+                    <div class="ecosystem-arrow">&#8594;</div>
+                    <div class="ecosystem-step">
                         <div class="step-icon">&#128221;</div>
                         <h3>Prepare</h3>
                         <p>Briefings, articles,<br>campaign pages</p>
@@ -629,7 +662,7 @@
                 </aside>
             </section>
 
-            <!-- 15. Next Steps -->
+            <!-- 16. Next Steps -->
             <section class="cta-slide">
                 <h2>Sage<span style="color: var(--gold)">Desk</span></h2>
                 <hr class="gold-divider" style="margin: 0.8em auto;">
@@ -660,6 +693,50 @@
             transition: 'fade',
             transitionSpeed: 'fast',
             plugins: [RevealNotes]
+        }).then(() => {
+            const carousels = document.querySelectorAll('[data-carousel]');
+            const intervals = new Map();
+
+            function getBullets(container) {
+                const grid = container.closest('.feature-grid');
+                return grid ? grid.querySelectorAll('.feature-text ul li') : [];
+            }
+
+            function startCarousel(container) {
+                const imgs = container.querySelectorAll('.carousel-img');
+                if (imgs.length < 2) return;
+                const bullets = getBullets(container);
+                let current = 0;
+                if (bullets[0]) bullets[0].classList.add('highlight');
+                const id = setInterval(() => {
+                    imgs[current].classList.remove('active');
+                    if (bullets[current]) bullets[current].classList.remove('highlight');
+                    current = (current + 1) % imgs.length;
+                    imgs[current].classList.add('active');
+                    if (bullets[current]) bullets[current].classList.add('highlight');
+                }, 5000);
+                intervals.set(container, id);
+            }
+
+            function stopCarousel(container) {
+                if (intervals.has(container)) {
+                    clearInterval(intervals.get(container));
+                    intervals.delete(container);
+                }
+                getBullets(container).forEach(b => b.classList.remove('highlight'));
+            }
+
+            // Start carousels on visible slide
+            Reveal.on('slidechanged', () => {
+                carousels.forEach(c => stopCarousel(c));
+                const slide = Reveal.getCurrentSlide();
+                const carousel = slide.querySelector('[data-carousel]');
+                if (carousel) startCarousel(carousel);
+            });
+
+            // Start carousel on initial slide if present
+            const initial = Reveal.getCurrentSlide().querySelector('[data-carousel]');
+            if (initial) startCarousel(initial);
         });
     </script>
 </body>
