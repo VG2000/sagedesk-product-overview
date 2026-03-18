@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SageDesk — Policy Research & Communications Platform</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #0a0a0f;
+            --navy-light: #141422;
+            --gold: #d4a843;
+            --gold-dim: rgba(212, 168, 67, 0.3);
+            --text: #e8e8ed;
+            --text-muted: rgba(255, 255, 255, 0.6);
+        }
+
+        .reveal {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            color: var(--text);
+        }
+
+        .reveal .slides {
+            text-align: left;
+        }
+
+        .reveal .slides section {
+            background: var(--navy);
+        }
+
+        .reveal h1, .reveal h2, .reveal h3 {
+            font-family: 'Inter', system-ui, sans-serif;
+            color: var(--text);
+            text-transform: none;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .reveal h1 {
+            font-size: 2.8em;
+            font-weight: 700;
+        }
+
+        .reveal h2 {
+            font-size: 1.6em;
+            margin-bottom: 0.6em;
+        }
+
+        .reveal h2 .gold {
+            color: var(--gold);
+        }
+
+        .reveal p, .reveal li {
+            font-size: 0.65em;
+            line-height: 1.6;
+            font-weight: 300;
+            color: var(--text);
+        }
+
+        .reveal ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .reveal ul li {
+            padding-left: 1.2em;
+            position: relative;
+            margin-bottom: 0.5em;
+        }
+
+        .reveal ul li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.55em;
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            border-radius: 50%;
+        }
+
+        .tagline {
+            color: var(--gold);
+            font-size: 1.1em !important;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            margin-top: 0.5em;
+        }
+
+        .company {
+            color: var(--text-muted);
+            font-size: 0.7em !important;
+            margin-top: 1.5em;
+            font-weight: 300;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5em;
+            align-items: center;
+        }
+
+        .feature-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .feature-text .use-case {
+            margin-top: 1em;
+            padding: 0.8em 1em;
+            background: var(--navy-light);
+            border-left: 3px solid var(--gold);
+            border-radius: 0 6px 6px 0;
+            font-size: 0.55em !important;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .feature-text .workflow {
+            margin-top: 0.6em;
+            font-size: 0.5em !important;
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        .screenshot-placeholder {
+            background: var(--navy-light);
+            border: 2px dashed rgba(212, 168, 67, 0.25);
+            border-radius: 12px;
+            height: 340px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 0.55em;
+            overflow: hidden;
+        }
+
+        .screenshot-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .screenshot-placeholder .placeholder-label {
+            font-size: 0.9em;
+            margin-top: 0.5em;
+            color: var(--gold-dim);
+        }
+
+        .screenshot-placeholder .placeholder-icon {
+            font-size: 2em;
+            margin-bottom: 0.2em;
+            opacity: 0.4;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5em;
+            margin-top: 1.5em;
+        }
+
+        .problem-card {
+            background: var(--navy-light);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            padding: 1.5em;
+            text-align: center;
+        }
+
+        .problem-card .icon {
+            font-size: 1.8em;
+            margin-bottom: 0.4em;
+        }
+
+        .problem-card h3 {
+            font-size: 0.65em;
+            margin: 0.3em 0;
+            color: var(--gold);
+        }
+
+        .problem-card p {
+            font-size: 0.45em !important;
+            color: var(--text-muted);
+        }
+
+        .ecosystem-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8em;
+            margin-top: 2em;
+            flex-wrap: wrap;
+        }
+
+        .ecosystem-step {
+            background: var(--navy-light);
+            border: 1px solid rgba(212, 168, 67, 0.2);
+            border-radius: 10px;
+            padding: 1em 1.2em;
+            text-align: center;
+            min-width: 140px;
+        }
+
+        .ecosystem-step .step-icon {
+            font-size: 1.4em;
+            margin-bottom: 0.2em;
+        }
+
+        .ecosystem-step h3 {
+            font-size: 0.55em;
+            color: var(--gold);
+            margin: 0.2em 0;
+        }
+
+        .ecosystem-step p {
+            font-size: 0.4em !important;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .ecosystem-arrow {
+            font-size: 1.2em;
+            color: var(--gold);
+            opacity: 0.5;
+        }
+
+        .cta-slide {
+            text-align: center;
+        }
+
+        .cta-slide h2 {
+            font-size: 2em;
+            margin-bottom: 0.5em;
+        }
+
+        .cta-slide p {
+            font-size: 0.7em !important;
+            color: var(--text-muted);
+        }
+
+        .cta-slide .contact {
+            margin-top: 1.5em;
+            font-size: 0.65em !important;
+            color: var(--gold);
+        }
+
+        .gold-divider {
+            width: 60px;
+            height: 3px;
+            background: var(--gold);
+            border: none;
+            margin: 0.8em 0 1em;
+            border-radius: 2px;
+        }
+
+        .slide-number {
+            color: var(--gold) !important;
+            font-family: 'Inter', sans-serif !important;
+            font-size: 12px !important;
+        }
+
+        .reveal .progress {
+            color: var(--gold);
+            height: 3px;
+        }
+
+        .reveal .controls {
+            color: var(--gold);
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- 1. Title -->
+            <section>
+                <h1>Sage<span style="color: var(--gold)">Desk</span></h1>
+                <p class="tagline">Policy Research & Communications Platform</p>
+                <p class="company">by SageQuery</p>
+                <aside class="notes">
+                    Welcome slide. SageDesk is an integrated platform built specifically for parliamentary teams.
+                </aside>
+            </section>
+
+            <!-- 2. The Problem -->
+            <section>
+                <h2>The <span class="gold">Challenge</span></h2>
+                <hr class="gold-divider">
+                <div class="problem-grid">
+                    <div class="problem-card">
+                        <div class="icon">&#128218;</div>
+                        <h3>Information Overload</h3>
+                        <p>Hundreds of reports, bulletins, and publications to track across ONS, GOV.UK, think tanks, and media</p>
+                    </div>
+                    <div class="problem-card">
+                        <div class="icon">&#9201;</div>
+                        <h3>Manual Preparation</h3>
+                        <p>Hours spent drafting briefings, preparing for questions, and researching policy positions</p>
+                    </div>
+                    <div class="problem-card">
+                        <div class="icon">&#128279;</div>
+                        <h3>Disconnected Tools</h3>
+                        <p>Separate systems for research, writing, data, media monitoring, and communications</p>
+                    </div>
+                </div>
+                <aside class="notes">
+                    Frame the problem: MPs and their teams are overwhelmed. SageDesk solves this by bringing everything into one place.
+                </aside>
+            </section>
+
+            <!-- 3. Resource Library -->
+            <section>
+                <h2>Resource <span class="gold">Library</span></h2>
+                <hr class="gold-divider">
+                <div class="feature-grid">
+                    <div class="feature-text">
+                        <ul>
+                            <li>Searchable, filterable library of reports, articles, podcasts, and policy documents from trusted publishers</li>
+                            <li>Every resource is automatically summarised by AI into short briefings and comprehensive analyses</li>
+                            <li>Filter by format, source, publisher, and topic with instant results</li>
+                        </ul>
+                        <div class="use-case">"Digest a 300-page ONS report in two minutes instead of two hours"</div>
+                        <div class="workflow">Eliminates manual document triage</div>
+                    </div>
+                    <div class="screenshot-placeholder">
+                        <!-- Replace with: <img src="img/resource-library.png" alt="Resource Library"> -->
+                        <div class="placeholder-icon">&#128218;</div>
+                        <div class="placeholder-label">resource-library.png</div>
+                    </div>
+                </div>
+                <aside class="notes">
+                    Core of the platform. Show the filter panel, AI summary pills, and search functionality.
+                </aside>
+            </section>
+
+            <!-- 4. AI Research Assistant -->
+            <section>
+                <h2>AI Research <span class="gold">Assistant</span></h2>
+                <hr class="gold-divider">
+                <div class="feature-grid">
+                    <div class="feature-text">
+                        <ul>
+                            <li>Ask questions in plain English and receive sourced, evidence-based answers from your document library</li>
+                            <li>Scope queries to a single resource for deep-dive analysis or search across everything</li>
+                            <li>Optional web search integration for the latest information beyond your library</li>
+                        </ul>
+                        <div class="use-case">"What are the latest statistics on food poverty in the UK?"</div>
+                        <div class="workflow">Replaces hours of manual cross-referencing</div>
+                    </div>
+                    <div class="screenshot-placeholder">
+                        <!-- Replace with: <img src="img/ai-assistant.png" alt="AI Research Assistant"> -->
+                        <div class="placeholder-icon">&#128172;</div>
+                        <div class="placeholder-label">ai-assistant.png</div>
+                    </div>
+                </div>
+                <aside class="notes">
+                    Demo the chatbot widget with a real question. Show how it cites sources from the library.
+                </aside>
+            </section>
+
+            <!-- 5. Article Writer -->
+            <section>
+                <h2>Article <span class="gold">Writer</span></h2>
+                <hr class="gold-divider">
+                <div class="feature-grid">
+                    <div class="feature-text">
+                        <ul>
+                            <li>AI-assisted drafting tool for opinion pieces, blog posts, and policy articles</li>
+                            <li>Draws on your resource library for evidence, ensuring every claim is grounded in data</li>
+                            <li>Multi-turn workflow: brainstorm, outline, draft, revise, polish</li>
+                        </ul>
+                        <div class="use-case">"Draft an op-ed on NHS funding with statistics from our library"</div>
+                        <div class="workflow">Accelerates writing from days to hours</div>
+                    </div>
+                    <div class="screenshot-placeholder">
+                        <!-- Replace with: <img src="img/article-writer.png" alt="Article Writer"> -->
+                        <div class="placeholder-icon">&#9997;</div>
+                        <div class="placeholder-label">article-writer.png</div>
+                    </div>
+                </div>
+                <aside class="notes">
+                    Show the full-page writer interface. Demonstrate how it pulls evidence from the library.
+                </aside>
+            </section>
+
+            <!-- 6. Briefing Generator -->
+            <section>
+                <h2>Briefing <span class="gold">Generator</span></h2>
+                <hr class="gold-divider">
+                <div class="feature-grid">
+                    <div class="feature-text">
+                        <ul>
+                            <li>Five briefing types: Speaking Notes, Ministerial Questions, Constituency Surgery, Media Interview, Social Content</li>
+                            <li>Each briefing draws on your evidence base and can include an alternative analytical perspective</li>
+                            <li>Export to Word document for easy sharing with colleagues</li>
+                        </ul>
+                        <div class="use-case">"Generate MQ prep on NHS waiting lists with key statistics and suggested questions"</div>
+                        <div class="workflow">Minutes instead of hours of preparation</div>
+                    </div>
+                    <div class="screenshot-placeholder">
+                        <!-- Replace with: <img src="img/briefing-generator.png" alt="Briefing Generator"> -->
+                        <div class="placeholder-icon">&#128203;</div>
+                        <div class="placeholder-label">briefing-generator.png</div>
+                    </div>
+                </div>
+                <aside class="notes">
+                    This is often the most impressive feature for MPs. Show the MQ prep type and the dual standard/skeptical output.
+                </aside>
+            </section>
+
+            <!-- 7. Media Analysis -->
+            <section>
+                <h2>Media <span class="gold">Analysis</span></h2>
+                <hr class="gold-divider">
+                <div class="feature-grid">
+                    <div class="feature-text">
+                        <ul>
+                            <li>Automatically transcribe podcasts and YouTube interviews with speaker identification</li>
+                            <li>AI analysis detects rhetorical techniques, evasive answers, and interview quality</li>
+                            <li>Subscribe to podcast feeds for automatic episode capture</li>
+                        </ul>
+                        <div class="use-case">"Transcribe a Select Committee session and flag evasive responses"</div>
+                        <div class="workflow">Hours of listening become searchable, analysable text</div>
+                    </div>
+                    <div class="screenshot-placeholder">
+                        <!-- Replace with: <img src="img/media-analysis.png" alt="Media Analysis"> -->
+                        <div class="placeholder-icon">&#127897;</div>
+                        <div class="placeholder-label">media-analysis.png</div>
+                    </div>
+                </div>
+                <aside class="notes">
+                    Show a transcribed podcast with speaker labels and the rhetorical analysis view.
+                </aside>
+            </section>
+
+            <!-- 8. Market Dashboard -->
+            <section>
+                <h2>Market <span class="gold">Dashboard</span></h2>
+                <hr class="gold-divider">
+                <div class="feature-grid">
+                    <div class="feature-text">
+                        <ul>
+                            <li>At-a-glance view of government bonds, equity indices, commodities, and currency pairs</li>
+                            <li>UK gilt yields compared against international peers (US, France, Germany)</li>
+                            <li>AI-powered chat panel for instant market commentary and daily summaries</li>
+                        </ul>
+                        <div class="use-case">"Check gilt yields before Treasury questions"</div>
+                        <div class="workflow">Market intelligence without Bloomberg</div>
+                    </div>
+                    <div class="screenshot-placeholder">
+                        <!-- Replace with: <img src="img/market-dashboard.png" alt="Market Dashboard"> -->
+                        <div class="placeholder-icon">&#128200;</div>
+                        <div class="placeholder-label">market-dashboard.png</div>
+                    </div>
+                </div>
+                <aside class="notes">
+                    Show the KPI strip and bond comparison matrix. Demo the AI chat with a "daily summary" request.
+                </aside>
+            </section>
+
+            <!-- 9. ONS & GOV.UK Monitor -->
+            <section>
+                <h2>ONS & GOV.UK <span class="gold">Monitor</span></h2>
+                <hr class="gold-divider">
+                <div class="feature-grid">
+                    <div class="feature-text">
+                        <ul>
+                            <li>Tracks ONS bulletin releases and ingests GOV.UK publication feeds automatically</li>
+                            <li>New releases are summarised by AI and can be emailed directly to your team</li>
+                            <li>Subscribe to specific department feeds and have publications added to your library automatically</li>
+                        </ul>
+                        <div class="use-case">"Get an AI briefing the moment ONS publishes new labour market data"</div>
+                        <div class="workflow">Publications come to you, pre-summarised</div>
+                    </div>
+                    <div class="screenshot-placeholder">
+                        <!-- Replace with: <img src="img/ons-monitor.png" alt="ONS & GOV.UK Monitor"> -->
+                        <div class="placeholder-icon">&#127467;&#127463;</div>
+                        <div class="placeholder-label">ons-monitor.png</div>
+                    </div>
+                </div>
+                <aside class="notes">
+                    Show the bulletin list and AI summary. Demo the GOV.UK feed subscription workflow.
+                </aside>
+            </section>
+
+            <!-- 10. Constituency Nowcast -->
+            <section>
+                <h2>Constituency <span class="gold">Nowcast</span></h2>
+                <hr class="gold-divider">
+                <div class="feature-grid">
+                    <div class="feature-text">
+                        <ul>
+                            <li>Live constituency-level polling projections across all 650 seats</li>
+                            <li>Interactive geographic and hex maps with seat count projections for 10 parties</li>
+                            <li>Historical trends, battleground seats, and regional breakdowns</li>
+                        </ul>
+                        <div class="use-case">"Monitor projected vote shares in your constituency and neighbouring battlegrounds"</div>
+                        <div class="workflow">All polling data in one always-current dashboard</div>
+                    </div>
+                    <div class="screenshot-placeholder">
+                        <!-- Replace with: <img src="img/nowcast.png" alt="Constituency Nowcast"> -->
+                        <div class="placeholder-icon">&#128506;</div>
+                        <div class="placeholder-label">nowcast.png</div>
+                    </div>
+                </div>
+                <aside class="notes">
+                    Show the Flourish map embeds and the historical data tabs. This is very visual and impressive.
+                </aside>
+            </section>
+
+            <!-- 11. Public Dashboards -->
+            <section>
+                <h2>Public <span class="gold">Dashboards</span></h2>
+                <hr class="gold-divider">
+                <div class="feature-grid">
+                    <div class="feature-text">
+                        <ul>
+                            <li>Customisable data dashboards presenting economic and policy data through interactive charts</li>
+                            <li>Themed views tracking the Chancellor's policy impact: cost of living, NHS, economic indicators</li>
+                            <li>Embeddable on constituency websites to keep constituents informed</li>
+                        </ul>
+                        <div class="use-case">"Share a cost-of-living dashboard on your constituency website"</div>
+                        <div class="workflow">Raw data into shareable visualisations — no data team needed</div>
+                    </div>
+                    <div class="screenshot-placeholder">
+                        <!-- Replace with: <img src="img/dashboards.png" alt="Public Dashboards"> -->
+                        <div class="placeholder-icon">&#128202;</div>
+                        <div class="placeholder-label">dashboards.png</div>
+                    </div>
+                </div>
+                <aside class="notes">
+                    Show the Chancellor's themes dashboard with the gauge indicators and inline charts.
+                </aside>
+            </section>
+
+            <!-- 12. Campaign Projects -->
+            <section>
+                <h2>Campaign <span class="gold">Projects</span></h2>
+                <hr class="gold-divider">
+                <div class="feature-grid">
+                    <div class="feature-text">
+                        <ul>
+                            <li>Build multi-media campaign pages combining narrative, charts, images, quotes, and statistics</li>
+                            <li>Share previews with stakeholders via secure token-gated links — no login required</li>
+                            <li>Professional digital format replacing PowerPoint decks and email chains</li>
+                        </ul>
+                        <div class="use-case">"Create a digital campaign brief combining data visualisations with case studies"</div>
+                        <div class="workflow">From scattered documents to a polished, shareable page</div>
+                    </div>
+                    <div class="screenshot-placeholder">
+                        <!-- Replace with: <img src="img/campaign-projects.png" alt="Campaign Projects"> -->
+                        <div class="placeholder-icon">&#127942;</div>
+                        <div class="placeholder-label">campaign-projects.png</div>
+                    </div>
+                </div>
+                <aside class="notes">
+                    Show the Right to Food project as an example. Highlight the token-gated preview feature.
+                </aside>
+            </section>
+
+            <!-- 13. Social & Subscriptions -->
+            <section>
+                <h2>Social & <span class="gold">Subscriptions</span></h2>
+                <hr class="gold-divider">
+                <div class="feature-grid">
+                    <div class="feature-text">
+                        <ul>
+                            <li><strong>Social Publishing:</strong> Draft and publish posts with AI-generated hooks and hashtags, optimised per platform</li>
+                            <li><strong>Email Digests:</strong> Team members subscribe to filtered resource updates — immediate, daily, or weekly</li>
+                            <li>AI summaries included in notifications so your team stays informed without manual forwarding</li>
+                        </ul>
+                        <div class="use-case">"Researchers subscribe to daily digests filtered to their policy specialisms"</div>
+                        <div class="workflow">Automated team communications</div>
+                    </div>
+                    <div class="screenshot-placeholder">
+                        <!-- Replace with: <img src="img/social-subscriptions.png" alt="Social & Subscriptions"> -->
+                        <div class="placeholder-icon">&#128231;</div>
+                        <div class="placeholder-label">social-subscriptions.png</div>
+                    </div>
+                </div>
+                <aside class="notes">
+                    Show the subscription panel on the Resource Library and the social post creation flow.
+                </aside>
+            </section>
+
+            <!-- 14. How It Fits Together -->
+            <section>
+                <h2>How It <span class="gold">Fits Together</span></h2>
+                <hr class="gold-divider">
+                <p style="font-size: 0.6em; color: var(--text-muted); text-align: center; margin-bottom: 1em;">
+                    Documents flow through an integrated ecosystem — from ingestion to analysis to communication.
+                </p>
+                <div class="ecosystem-flow">
+                    <div class="ecosystem-step">
+                        <div class="step-icon">&#128229;</div>
+                        <h3>Ingest</h3>
+                        <p>ONS, GOV.UK, uploads,<br>podcast feeds</p>
+                    </div>
+                    <div class="ecosystem-arrow">&#8594;</div>
+                    <div class="ecosystem-step">
+                        <div class="step-icon">&#129504;</div>
+                        <h3>Analyse</h3>
+                        <p>AI summaries, RAG search,<br>media transcription</p>
+                    </div>
+                    <div class="ecosystem-arrow">&#8594;</div>
+                    <div class="ecosystem-step">
+                        <div class="step-icon">&#128221;</div>
+                        <h3>Prepare</h3>
+                        <p>Briefings, articles,<br>campaign pages</p>
+                    </div>
+                    <div class="ecosystem-arrow">&#8594;</div>
+                    <div class="ecosystem-step">
+                        <div class="step-icon">&#128227;</div>
+                        <h3>Communicate</h3>
+                        <p>Social posts, dashboards,<br>email digests</p>
+                    </div>
+                </div>
+                <aside class="notes">
+                    This slide ties everything together. Emphasise that it's one integrated system, not 12 separate tools.
+                </aside>
+            </section>
+
+            <!-- 15. Next Steps -->
+            <section class="cta-slide">
+                <h2>Sage<span style="color: var(--gold)">Desk</span></h2>
+                <hr class="gold-divider" style="margin: 0.8em auto;">
+                <p>Your team's policy intelligence, research, and communications — in one place.</p>
+                <p class="contact">
+                    Get in touch to discuss licensing and onboarding.<br>
+                    <strong style="color: var(--text);">contact@sagequery.co.uk</strong>
+                </p>
+                <aside class="notes">
+                    Close with next steps. Offer a live demo session and discuss licensing options.
+                </aside>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: true,
+            showSlideNumber: 'all',
+            center: false,
+            width: 1280,
+            height: 720,
+            margin: 0.08,
+            transition: 'fade',
+            transitionSpeed: 'fast',
+            plugins: [RevealNotes]
+        });
+    </script>
+</body>
+</html>
