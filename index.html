@@ -150,6 +150,27 @@
             opacity: 1;
         }
 
+        .screenshot-placeholder[data-carousel] {
+            cursor: pointer;
+        }
+
+        .carousel-counter {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.55);
+            color: #fff;
+            font-size: 0.55em;
+            padding: 0.15em 0.5em;
+            border-radius: 999px;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .carousel-counter.paused::after {
+            content: '  \23F8';
+        }
+
         .feature-text ul li.highlight {
             color: var(--gold);
         }
@@ -400,7 +421,7 @@
                         <img class="carousel-img active" src="img/pages/media_analysis/podcast_list.png" alt="Podcast list">
                         <img class="carousel-img" src="img/pages/media_analysis/zack_speaker_profile.png" alt="Transcribed podcast">
                         <img class="carousel-img" src="img/pages/media_analysis/zack_1.png" alt="Media analysis view">
-                        <img class="carousel-img" src="img/pages/media_analysis/zack_2a.png" alt="Media analysis detail">
+                        <img class="carousel-img" src="img/pages/media_analysis/Zack_2a.png" alt="Media analysis detail">
                         <img class="carousel-img" src="img/pages/media_analysis/zack_3.png" alt="Interview prep notes">
                         <img class="carousel-img" src="img/pages/media_analysis/zack_4.png" alt="Post-interview scorecard">
                     </div>
@@ -662,26 +683,63 @@
         }).then(() => {
             const carousels = document.querySelectorAll('[data-carousel]');
             const intervals = new Map();
+            const carouselState = new Map();
 
             function getBullets(container) {
                 const grid = container.closest('.feature-grid');
                 return grid ? grid.querySelectorAll('.feature-text ul li') : [];
             }
 
+            function getOrCreateCounter(container) {
+                let counter = container.querySelector('.carousel-counter');
+                if (!counter) {
+                    counter = document.createElement('span');
+                    counter.className = 'carousel-counter';
+                    container.appendChild(counter);
+                }
+                return counter;
+            }
+
+            function runCarousel(container, startFrom) {
+                const imgs = container.querySelectorAll('.carousel-img');
+                const bullets = getBullets(container);
+                const counter = getOrCreateCounter(container);
+                const state = { current: startFrom };
+                carouselState.set(container, state);
+                counter.textContent = `${state.current + 1} / ${imgs.length}`;
+                counter.classList.remove('paused');
+
+                const id = setInterval(() => {
+                    imgs[state.current].classList.remove('active');
+                    if (bullets[state.current]) bullets[state.current].classList.remove('highlight');
+                    state.current = (state.current + 1) % imgs.length;
+                    imgs[state.current].classList.add('active');
+                    if (bullets[state.current]) bullets[state.current].classList.add('highlight');
+                    counter.textContent = `${state.current + 1} / ${imgs.length}`;
+                }, 5000);
+                intervals.set(container, id);
+            }
+
             function startCarousel(container) {
                 const imgs = container.querySelectorAll('.carousel-img');
                 if (imgs.length < 2) return;
                 const bullets = getBullets(container);
-                let current = 0;
                 if (bullets[0]) bullets[0].classList.add('highlight');
-                const id = setInterval(() => {
-                    imgs[current].classList.remove('active');
-                    if (bullets[current]) bullets[current].classList.remove('highlight');
-                    current = (current + 1) % imgs.length;
-                    imgs[current].classList.add('active');
-                    if (bullets[current]) bullets[current].classList.add('highlight');
-                }, 5000);
-                intervals.set(container, id);
+                runCarousel(container, 0);
+
+                container.onclick = () => {
+                    if (intervals.has(container)) {
+                        // Pause
+                        clearInterval(intervals.get(container));
+                        intervals.delete(container);
+                        const counter = container.querySelector('.carousel-counter');
+                        if (counter) counter.classList.add('paused');
+                    } else {
+                        // Resume from current image
+                        const state = carouselState.get(container);
+                        runCarousel(container, state ? state.current : 0);
+                    }
+                };
             }
 
             function stopCarousel(container) {
@@ -689,7 +747,15 @@
                     clearInterval(intervals.get(container));
                     intervals.delete(container);
                 }
+                carouselState.delete(container);
+                container.onclick = null;
                 getBullets(container).forEach(b => b.classList.remove('highlight'));
+                const counter = container.querySelector('.carousel-counter');
+                if (counter) {
+                    const imgs = container.querySelectorAll('.carousel-img');
+                    counter.textContent = `1 / ${imgs.length}`;
+                    counter.classList.remove('paused');
+                }
             }
 
             // Start carousels on visible slide
